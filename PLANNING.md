@@ -2,15 +2,16 @@
 
 ## Estado actual
 - Fase: FASE 0 — Inicialización del Proyecto
-- Subfase actual: INIT-02 — Inicialización y configuración base del backend
+- Subfase actual: INIT-03 — Inicialización y configuración base del frontend
 - Estado: esperando aprobación
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
+- INIT-02 — Inicialización y configuración base del backend ✅
 
 ## Subfases pendientes
-- INIT-03 — Inicialización y configuración base del frontend
 - INIT-04 — Conexión a Firebase Firestore
 
 ## Notas
 - INIT-01 aprobada sin reescribir historial de commits (opción A).
+- En INIT-02 se agregó autoverificación de salud en server.js.
