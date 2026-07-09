@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 1 — Arquitectura Base del Backend
-- Subfase actual: ARCH-01 — Estructura modular por capas
+- Subfase actual: ARCH-02 — Manejo centralizado de errores
 - Estado: esperando aprobación
 
 ## Subfases completadas
@@ -11,9 +11,9 @@
 - INIT-03 — Inicialización y configuración base del frontend ✅
 - INIT-04 — Conexión a Firebase Firestore ✅
 - ARCH-01 — Estructura modular por capas ✅
+- ARCH-02 — Manejo centralizado de errores ✅
 
 ## Subfases pendientes
-- ARCH-02 — Manejo centralizado de errores
 - ARCH-03 — Middleware de métricas de rendimiento
 - ARCH-04 — Formato de respuesta HTTP consistente
 
@@ -22,4 +22,5 @@
 - En INIT-02 se agregó autoverificación de salud en server.js.
 - INIT-03 aprobada con frontend funcional (Vite + React + Tailwind).
 - En INIT-04 se instaló firebase-admin y se conectó Firestore.
-- ARCH-01: estructura modular creada con carpetas vacías para identity y tasks, routes placeholder montados en app.js.
+- ARCH-01: estructura modular creada con carpetas vacías y routes placeholder.
+- ARCH-02: AppError class y errorHandler middleware implementados y registrados en app.js.
