@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 1 — Arquitectura Base del Backend
-- Subfase actual: ARCH-03 — Middleware de métricas de rendimiento
+- Subfase actual: ARCH-04 — Formato de respuesta HTTP consistente
 - Estado: esperando aprobación
 
 ## Subfases completadas
@@ -13,9 +13,10 @@
 - ARCH-01 — Estructura modular por capas ✅
 - ARCH-02 — Manejo centralizado de errores ✅
 - ARCH-03 — Middleware de métricas de rendimiento ✅
+- ARCH-04 — Formato de respuesta HTTP consistente ✅
 
 ## Subfases pendientes
-- ARCH-04 — Formato de respuesta HTTP consistente
+- FASE 2 — Identificación Simulada (Backend)
 
 ## Notas
 - INIT-01 aprobada sin reescribir historial de commits (opción A).
@@ -24,4 +25,5 @@
 - En INIT-04 se instaló firebase-admin y se conectó Firestore.
 - ARCH-01: estructura modular creada con carpetas vacías y routes placeholder.
 - ARCH-02: AppError class y errorHandler middleware.
-- ARCH-03: metrics middleware registrado como primer middleware en app.js.
+- ARCH-03: metrics middleware.
+- ARCH-04: successResponse y errorResponse en shared/http/response.js, conectado con errorHandler.
