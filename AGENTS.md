@@ -120,17 +120,14 @@ Funcionamiento:
     description: string;
     priority: "Low" | "Medium" | "High";
     status: "To Do" | "In Progress" | "Done";
-
     owner: {
         id: string;
         email: string;
     };
-
     responsible: {
         id: string;
         email: string;
     };
-
     assignedAt: Timestamp;
     createdAt: Timestamp;
     updatedAt: Timestamp;
@@ -246,38 +243,27 @@ Ejemplo:
 
 ```text
 src/
-
-modules/
+  modules/
     identity/
     tasks/
-
-shared/
+  shared/
     middlewares/
     errors/
     utils/
-
-config/
-
-app.js
-
-server.js
+  config/
+  app.js
+  server.js
 ```
 
 Cada módulo podrá contener:
 
 ```text
 controller/
-
 service/
-
 repository/
-
 routes/
-
 validations/
-
 dto/
-
 constants/
 ```
 
@@ -371,29 +357,20 @@ No se busca una interfaz compleja sino una interfaz profesional y limpia.
 ```ts
 {
     id: string;
-
     title: string;
-
     description: string;
-
     priority: "Low" | "Medium" | "High";
-
     status: "To Do" | "In Progress" | "Done";
-
     owner: {
         id: string;
         email: string;
     };
-
     responsible: {
         id: string;
         email: string;
     };
-
     assignedAt: Timestamp;
-
     createdAt: Timestamp;
-
     updatedAt: Timestamp;
 }
 ```
@@ -472,6 +449,67 @@ Durante todo el proyecto deberás seguir estas reglas:
 - No implementar funcionalidades fuera del alcance.
 - Si propones una mejora arquitectónica, explica brevemente por qué aporta valor y espera aprobación antes de modificar el diseño.
 - Mantén siempre el contexto completo del proyecto durante todas las conversaciones.
+- Seguir estrictamente el plan de desarrollo definido en `PROJECTROADMAP.md` y mantener actualizado `PLANNING.md`, según se describe en la sección "Seguimiento del Plan de Desarrollo".
+
+---
+
+# Seguimiento del Plan de Desarrollo (PROJECTROADMAP.md y PLANNING.md)
+
+El desarrollo de este proyecto debe seguir estrictamente el plan definido en `PROJECTROADMAP.md`. Ese documento es la única fuente de verdad sobre qué implementar, en qué orden y cuándo detenerse. `PROJECTROADMAP.md` es un documento fijo: no debe modificarse durante el desarrollo salvo indicación explícita del desarrollador.
+
+## Reglas obligatorias de ejecución
+
+- No debe implementarse ninguna fase o subfase que no esté definida en `PROJECTROADMAP.md`.
+- El desarrollo se realiza siempre **una subfase a la vez**, nunca de corrido.
+- Al finalizar la implementación de una subfase, debes detenerte y esperar la **aprobación explícita del desarrollador** antes de continuar con la siguiente.
+- No debes adelantar trabajo correspondiente a fases o subfases futuras, aunque parezca natural hacerlo.
+- Si el desarrollador solicita algo que no corresponde a la subfase actual del roadmap, debes advertirlo antes de proceder.
+
+## Archivo PLANNING.md
+
+Debe existir en la raíz del proyecto un archivo `PLANNING.md`, que funciona como **bitácora interna de seguimiento** del plan. A diferencia de `PROJECTROADMAP.md` (fijo e inmutable), `PLANNING.md` es un archivo vivo que se actualiza constantemente durante el desarrollo.
+
+`PLANNING.md` debe contener siempre:
+
+- Fase y subfase actual en ejecución (identificador y nombre).
+- Estado de la subfase actual: `en progreso`, `esperando aprobación` o `aprobada`.
+- Listado de fases y subfases ya completadas y aprobadas, en orden.
+- Listado de fases y subfases pendientes, en orden, tal como aparecen en `PROJECTROADMAP.md`.
+- Referencia del último commit aprobado, si aplica.
+- Notas relevantes sobre decisiones tomadas durante la subfase actual, si las hay.
+
+### Reglas de actualización de PLANNING.md
+
+- Debe actualizarse al **iniciar** cada subfase, marcándola como `en progreso`.
+- Debe actualizarse al **finalizar la implementación** de cada subfase, marcándola como `esperando aprobación`.
+- Solo debe marcarse una subfase como `aprobada` / `completada` después de recibir la **aprobación explícita del desarrollador**.
+- Nunca debe marcarse como completada una subfase que no haya sido aprobada.
+- No debe eliminarse el historial de fases/subfases ya completadas; `PLANNING.md` debe mantener trazabilidad completa del avance del proyecto en todo momento.
+- La actualización de `PLANNING.md` se incluye en el mismo commit de la subfase correspondiente o, si ya fue commiteada, en un commit inmediato de tipo `chore(planning): update progress tracking`. Nunca debe quedar desactualizado respecto al estado real del proyecto.
+
+### Estructura mínima esperada de PLANNING.md
+
+```markdown
+# PLANNING.md
+
+## Estado actual
+- Fase: FASE X - <nombre de la fase>
+- Subfase actual: <ID> - <nombre de la subfase>
+- Estado: en progreso | esperando aprobación | aprobada
+
+## Subfases completadas
+- INIT-01 - Estructura del repositorio
+- INIT-02 - Inicialización y configuración base del backend
+- ...
+
+## Subfases pendientes
+- ARCH-01 - Estructura modular por capas
+- ARCH-02 - Manejo centralizado de errores
+- ...
+
+## Notas
+- <notas relevantes sobre la subfase actual, si las hay>
+```
 
 ---
 
@@ -490,4 +528,4 @@ Todo el código generado deberá cumplir con los siguientes criterios:
 - Debe seguir buenas prácticas de JavaScript y React.
 - Cada decisión debe priorizar mantenibilidad, legibilidad y escalabilidad.
 
-Antes de implementar cualquier nueva funcionalidad, verifica que la solución respete este documento y mantenga coherencia con la arquitectura y las decisiones definidas, usa las skills necesarias para obtener resultados solidos y claros.
+Antes de implementar cualquier nueva funcionalidad, verifica que la solución respete este documento, el plan definido en `PROJECTROADMAP.md` y el estado registrado en `PLANNING.md`, manteniendo coherencia con la arquitectura y las decisiones definidas. Usa las skills necesarias para obtener resultados sólidos y claros.
