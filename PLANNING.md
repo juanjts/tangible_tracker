@@ -1,9 +1,9 @@
 # PLANNING.md
 
 ## Estado actual
-- Fase: FASE 4 — CRUD de Tareas (Backend)
-- Subfase actual: TASK-API-10 — Consolidación del CRUD y pruebas
-- Estado: esperando aprobación
+- Fase: FASE 5 — CRUD de Tareas (Frontend)
+- Subfase actual: TASK-UI-06 — Servicio HTTP de tareas
+- Estado: en progreso
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
@@ -23,16 +23,14 @@
 - TASK-UI-04 — Estado global de usuario activo ✅
 - TASK-UI-05 — Layout base y navegación ✅
 - TASK-API-04 — Repositorio de tareas (Firestore) ✅
+- TASK-API-05 — Crear tarea ✅
+- TASK-API-06 — Listar tareas ✅
+- TASK-API-07 — Consultar detalle de tarea ✅
+- TASK-API-08 — Actualizar tarea ✅
+- TASK-API-09 — Eliminar tarea ✅
+- TASK-API-10 — Consolidación del CRUD y pruebas ✅
 
 ## Subfases pendientes
-### FASE 4 — CRUD de Tareas (Backend)
-- TASK-API-05 — Crear tarea
-- TASK-API-06 — Listar tareas
-- TASK-API-07 — Consultar detalle de tarea
-- TASK-API-08 — Actualizar tarea
-- TASK-API-09 — Eliminar tarea
-- TASK-API-10 — Consolidación del CRUD y pruebas
-
 ### FASE 5 — CRUD de Tareas (Frontend)
 - TASK-UI-06 — Servicio HTTP de tareas
 - TASK-UI-07 — Listado de tareas
@@ -78,3 +76,5 @@
 - TASK-UI-05: AppLayout con navbar (NavLink activo, email usuario, cerrar sesión), Outlet para rutas hijas, /identity fuera del layout.
 - TASK-API-04: taskRepository con CRUD completo (findAll, findById, create, update, remove).
 - TASK-API-05: taskService.create valida activeUser via x-user-email header + responsibleEmail contra userRepository. taskValidations con enums. server.js fix para error EADDRINUSE (Express 5 llama al callback con el error). Owner siempre asignado por backend desde el header validado, nunca del body.
+- TASK-API-06 a TASK-API-10: CRUD backend completo validado con todas las reglas de negocio (RN-04 a RN-13).
+- TASK-UI-06: servicio tasksService.js creado con 5 funciones (list, getById, create, update, remove), siguiendo el mismo patrón de identityService.js.
