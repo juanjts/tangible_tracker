@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 6 — Dashboard y Experiencia de Usuario
-- Subfase actual: REFACTOR-02 — Revisión de arquitectura frontend
+- Subfase actual: DOC-01 — README.md
 - Estado: en progreso
 
 ## Subfases completadas
