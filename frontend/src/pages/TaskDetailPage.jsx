@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getById, remove } from '../services/tasksService'
+import { getById } from '../services/tasksService'
 import TaskForm from '../components/tasks/TaskForm'
 import LoadingState from '../components/common/LoadingState'
 import ErrorState from '../components/common/ErrorState'
+import { useAsyncEffect } from '../shared/hooks/useAsyncEffect'
+import { useDeleteTask } from '../shared/hooks/useDeleteTask'
+import { formatTaskDate } from '../shared/utils/date'
 
 const PRIORITY_STYLES = {
   High: 'bg-red-100 text-red-700',
@@ -17,18 +20,6 @@ const STATUS_STYLES = {
   Done: 'bg-green-100 text-green-700',
 }
 
-function formatDate(timestamp) {
-  if (!timestamp || !timestamp._seconds) return '\u2014'
-  const date = new Date(timestamp._seconds * 1000)
-  return date.toLocaleDateString('es-CO', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
-
 function TaskDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -37,27 +28,20 @@ function TaskDetailPage() {
   const [error, setError] = useState('')
   const [showEditForm, setShowEditForm] = useState(false)
   const [deleteError, setDeleteError] = useState('')
-  const [deleting, setDeleting] = useState(false)
+  const { deleteTask, deleting } = useDeleteTask()
 
-  useEffect(() => {
-    let cancelled = false
-
-    async function fetchTask() {
-      try {
-        const data = await getById(id)
-        if (!cancelled) setTask(data)
-      } catch (err) {
-        if (!cancelled) {
-          const status = err.response?.status
-          setError(status === 404 ? 'Tarea no encontrada' : 'Error al cargar la tarea')
-        }
-      } finally {
-        if (!cancelled) setLoading(false)
+  useAsyncEffect(async (getCancelled) => {
+    try {
+      const data = await getById(id)
+      if (!getCancelled()) setTask(data)
+    } catch (err) {
+      if (!getCancelled()) {
+        const status = err.response?.status
+        setError(status === 404 ? 'Tarea no encontrada' : 'Error al cargar la tarea')
       }
+    } finally {
+      if (!getCancelled()) setLoading(false)
     }
-
-    fetchTask()
-    return () => { cancelled = true }
   }, [id])
 
   async function handleEditSuccess() {
@@ -67,17 +51,11 @@ function TaskDetailPage() {
   }
 
   async function handleDelete() {
-    if (!window.confirm('Esta accion eliminara la tarea permanentemente. ¿Deseas continuar?')) return
     setDeleteError('')
-    setDeleting(true)
     try {
-      await remove(id)
-      navigate('/tasks', { replace: true })
-    } catch (err) {
-      const message = err.response?.data?.error?.message || 'Error al eliminar la tarea'
+      await deleteTask(id, () => navigate('/tasks', { replace: true }))
+    } catch (message) {
       setDeleteError(message)
-    } finally {
-      setDeleting(false)
     }
   }
 
@@ -173,15 +151,15 @@ function TaskDetailPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-neutral-400">
           <div>
             <span>Creado</span>
-            <p className="text-neutral-600 mt-0.5">{formatDate(task.createdAt)}</p>
+            <p className="text-neutral-600 mt-0.5">{formatTaskDate(task.createdAt)}</p>
           </div>
           <div>
             <span>Actualizado</span>
-            <p className="text-neutral-600 mt-0.5">{formatDate(task.updatedAt)}</p>
+            <p className="text-neutral-600 mt-0.5">{formatTaskDate(task.updatedAt)}</p>
           </div>
           <div>
             <span>Asignado</span>
-            <p className="text-neutral-600 mt-0.5">{formatDate(task.assignedAt)}</p>
+            <p className="text-neutral-600 mt-0.5">{formatTaskDate(task.assignedAt)}</p>
           </div>
         </div>
 

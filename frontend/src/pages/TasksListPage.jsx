@@ -1,11 +1,12 @@
 ﻿import { useState, useEffect, useCallback, useMemo } from 'react'
-import { list, remove } from '../services/tasksService'
+import { list } from '../services/tasksService'
 import TaskCard from '../components/tasks/TaskCard'
 import TaskForm from '../components/tasks/TaskForm'
 import TaskFilters from '../components/tasks/TaskFilters'
 import LoadingState from '../components/common/LoadingState'
 import ErrorState from '../components/common/ErrorState'
 import EmptyState from '../components/common/EmptyState'
+import { useDeleteTask } from '../shared/hooks/useDeleteTask'
 
 function TasksListPage() {
   const [tasks, setTasks] = useState([])
@@ -49,13 +50,12 @@ function TasksListPage() {
     fetchTasks()
   }
 
+  const { deleteTask } = useDeleteTask()
+
   async function handleDelete(id) {
-    if (!window.confirm('Esta accion eliminara la tarea permanentemente. ¿Deseas continuar?')) return
     try {
-      await remove(id)
-      fetchTasks()
-    } catch (err) {
-      const message = err.response?.data?.error?.message || 'Error al eliminar la tarea'
+      await deleteTask(id, fetchTasks)
+    } catch (message) {
       setError(message)
     }
   }

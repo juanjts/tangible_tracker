@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 6 — Dashboard y Experiencia de Usuario
-- Subfase actual: REFACTOR-01 — Revisión de arquitectura backend
+- Subfase actual: REFACTOR-02 — Revisión de arquitectura frontend
 - Estado: en progreso
 
 ## Subfases completadas
@@ -86,6 +86,7 @@
 - UX-01: Dashboard con conteos de tareas por estado y prioridad, estados de carga/error/vacio.
 - UX-04: Diseño responsive implementado en AppLayout (nav oculta email en móvil), TasksListPage, TaskDetailPage (grids adaptables), DashboardPage. Padding responsivo en todas las páginas.
 - UX-05: LoadingState con spinner animado, ErrorState con botón de reintento opcional, EmptyState con icono SVG inline, hover en StatCard y form de IdentityPage, transition en badges de TaskDetailPage.
+- REFACTOR-01: require(AppError) movido al tope en identityController, validación !email movida al service, timestamps nulos eliminados de taskRepository.create().
 - Se corrigieron las referencias en AGENTS.md: PROJECTROADMAP.md → PROJECT_ROADMAP.md para que coincida con el nombre real del archivo.
 - Se creó opencode.json en la raíz registrando las 12 skills del proyecto.
 - Se eliminó UX-04 duplicado de la lista de pendientes.

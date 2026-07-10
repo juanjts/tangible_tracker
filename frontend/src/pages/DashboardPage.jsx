@@ -1,8 +1,9 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState } from 'react'
 import { list } from '../services/tasksService'
 import LoadingState from '../components/common/LoadingState'
 import ErrorState from '../components/common/ErrorState'
 import EmptyState from '../components/common/EmptyState'
+import { useAsyncEffect } from '../shared/hooks/useAsyncEffect'
 
 const STATUS_STYLES = {
   'To Do': {
@@ -73,22 +74,15 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    let cancelled = false
-
-    async function fetchTasks() {
-      try {
-        const data = await list()
-        if (!cancelled) setTasks(data)
-      } catch {
-        if (!cancelled) setError('Error al cargar las tareas')
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
+  useAsyncEffect(async (getCancelled) => {
+    try {
+      const data = await list()
+      if (!getCancelled()) setTasks(data)
+    } catch {
+      if (!getCancelled()) setError('Error al cargar las tareas')
+    } finally {
+      if (!getCancelled()) setLoading(false)
     }
-
-    fetchTasks()
-    return () => { cancelled = true }
   }, [])
 
   if (loading) {
