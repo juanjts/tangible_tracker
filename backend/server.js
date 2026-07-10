@@ -5,7 +5,12 @@ const db = require('./src/config/firebase');
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, (err) => {
+  if (err) {
+    console.error(`Failed to start server on port ${PORT}: ${err.message}`);
+    process.exit(1);
+  }
+
   console.log(`Server running on port ${PORT}`);
 
   http.get(`http://localhost:${PORT}/api/health`, (res) => {
@@ -21,4 +26,9 @@ app.listen(PORT, () => {
   } else {
     console.log('Firestore connection: skipped (no credentials)');
   }
+});
+
+server.on('error', (err) => {
+  console.error(`Server error: ${err.message}`);
+  process.exit(1);
 });

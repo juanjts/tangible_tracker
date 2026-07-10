@@ -2,8 +2,8 @@
 
 ## Estado actual
 - Fase: FASE 4 — CRUD de Tareas (Backend)
-- Subfase actual: TASK-API-04 — Repositorio de tareas (Firestore)
-- Estado: pendiente
+- Subfase actual: TASK-API-05 — Crear tarea
+- Estado: esperando aprobación
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
@@ -22,9 +22,10 @@
 - TASK-UI-03 — Pantalla de identificación simulada ✅
 - TASK-UI-04 — Estado global de usuario activo ✅
 - TASK-UI-05 — Layout base y navegación ✅
+- TASK-API-04 — Repositorio de tareas (Firestore) ✅
 
+## Subfases pendientes
 ### FASE 4 — CRUD de Tareas (Backend)
-- TASK-API-04 — Repositorio de tareas (Firestore)
 - TASK-API-05 — Crear tarea
 - TASK-API-06 — Listar tareas
 - TASK-API-07 — Consultar detalle de tarea
@@ -75,3 +76,5 @@
 - TASK-UI-03: Formulario controlado con email + password, validación, loading, error, servicio identityService separado.
 - TASK-UI-04: UserContext con sessionStorage, login/logout, redirect con Navigate.
 - TASK-UI-05: AppLayout con navbar (NavLink activo, email usuario, cerrar sesión), Outlet para rutas hijas, /identity fuera del layout.
+- TASK-API-04: taskRepository con CRUD completo (findAll, findById, create, update, remove).
+- TASK-API-05: taskService.create valida activeUser via x-user-email header + responsibleEmail contra userRepository. taskValidations con enums. server.js fix para error EADDRINUSE (Express 5 llama al callback con el error). Owner siempre asignado por backend desde el header validado, nunca del body.
