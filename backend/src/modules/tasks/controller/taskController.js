@@ -28,6 +28,15 @@ async function update(req, res, next) {
   }
 }
 
+async function remove(req, res, next) {
+  try {
+    await taskService.remove(req.params.id);
+    successResponse(res, null);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function create(req, res, next) {
   try {
     const activeUserEmail = req.headers['x-user-email'];
@@ -38,4 +47,4 @@ async function create(req, res, next) {
   }
 }
 
-module.exports = { list, getById, update, create };
+module.exports = { list, getById, update, remove, create };

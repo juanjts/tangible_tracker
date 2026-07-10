@@ -13,6 +13,12 @@ async function getById(id) {
   return task;
 }
 
+async function remove(id) {
+  const task = await taskRepository.findById(id);
+  if (!task) throw new AppError('Task not found', 404);
+  await taskRepository.remove(id);
+}
+
 async function update(id, data) {
   const existing = await taskRepository.findById(id);
   if (!existing) throw new AppError('Task not found', 404);
@@ -68,4 +74,4 @@ async function create({ title, description, priority, status, responsibleEmail, 
   return await taskRepository.create(taskData);
 }
 
-module.exports = { list, getById, update, create };
+module.exports = { list, getById, update, remove, create };
