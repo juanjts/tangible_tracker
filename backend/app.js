@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const identityRoutes = require('./src/modules/identity/routes/identityRoutes');
 const taskRoutes = require('./src/modules/tasks/routes/taskRoutes');
@@ -7,10 +8,11 @@ const metrics = require('./src/shared/middlewares/metrics');
 
 const app = express();
 
+app.use(cors());
 app.use(metrics);
 app.use(express.json());
 
-app.get('/health', (_req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 

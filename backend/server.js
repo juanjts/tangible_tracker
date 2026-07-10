@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
-  http.get(`http://localhost:${PORT}/health`, (res) => {
+  http.get(`http://localhost:${PORT}/api/health`, (res) => {
     let data = '';
     res.on('data', chunk => data += chunk);
     res.on('end', () => console.log(`Health check: ${data}`));
