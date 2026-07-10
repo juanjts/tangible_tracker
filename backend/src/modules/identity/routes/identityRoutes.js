@@ -1,10 +1,8 @@
 const { Router } = require('express');
-const { successResponse } = require('../../../shared/http/response');
+const identityController = require('../controller/identityController');
 
 const router = Router();
 
-router.get('/test', (_req, res) => {
-  successResponse(res, { message: 'Identity module ready' });
-});
+router.post('/', identityController.identify);
 
 module.exports = router;
