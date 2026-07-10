@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 6 — Dashboard y Experiencia de Usuario
-- Subfase actual: UX-01 — Dashboard resumen
+- Subfase actual: UX-02 — Filtros y búsqueda de tareas
 - Estado: en progreso
 
 ## Subfases completadas
@@ -36,11 +36,11 @@
 - TASK-UI-10 — Edición de tarea ✅
 - TASK-UI-11 — Eliminación de tarea ✅
 - TASK-UI-12 — Cambio de responsable ✅
+- UX-01 — Dashboard resumen ✅
 
 ## Subfases pendientes
 
 ### FASE 6 — Dashboard y Experiencia de Usuario
-- UX-02 — Filtros y búsqueda de tareas
 - UX-03 — Estados de carga, error y vacío
 - UX-04 — Diseño responsive
 - UX-05 — Pulido visual final

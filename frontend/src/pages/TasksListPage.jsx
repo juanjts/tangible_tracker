@@ -1,13 +1,15 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { list, remove } from '../services/tasksService'
 import TaskCard from '../components/tasks/TaskCard'
 import TaskForm from '../components/tasks/TaskForm'
+import TaskFilters from '../components/tasks/TaskFilters'
 
 function TasksListPage() {
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [showForm, setShowForm] = useState(false)
+  const [filters, setFilters] = useState({ search: '', status: '', priority: '' })
 
   const fetchTasks = useCallback(async () => {
     setLoading(true)
@@ -26,6 +28,18 @@ function TasksListPage() {
   useEffect(() => {
     fetchTasks()
   }, [fetchTasks])
+
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      if (filters.search) {
+        const q = filters.search.toLowerCase()
+        if (!task.title.toLowerCase().includes(q)) return false
+      }
+      if (filters.status && task.status !== filters.status) return false
+      if (filters.priority && task.priority !== filters.priority) return false
+      return true
+    })
+  }, [tasks, filters])
 
   function handleCreated() {
     setShowForm(false)
@@ -59,6 +73,8 @@ function TasksListPage() {
     )
   }
 
+  const hasActiveFilters = filters.search || filters.status || filters.priority
+
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
@@ -66,9 +82,15 @@ function TasksListPage() {
           Tareas
         </h1>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-neutral-400">
-            {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'}
-          </span>
+          {hasActiveFilters ? (
+            <span className="text-sm text-neutral-400">
+              {filteredTasks.length} de {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'}
+            </span>
+          ) : (
+            <span className="text-sm text-neutral-400">
+              {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'}
+            </span>
+          )}
           <button
             onClick={() => setShowForm(true)}
             className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition cursor-pointer"
@@ -89,14 +111,30 @@ function TasksListPage() {
         </div>
       )}
 
-      {tasks.length === 0 && !showForm ? (
+      <TaskFilters filters={filters} onFilterChange={setFilters} />
+
+      {filteredTasks.length === 0 ? (
         <div className="text-center mt-16">
           <p className="text-neutral-300 text-5xl mb-4">--</p>
-          <p className="text-neutral-400 text-sm">No hay tareas registradas</p>
+          {hasActiveFilters ? (
+            <>
+              <p className="text-neutral-400 text-sm mb-4">
+                No se encontraron tareas con los filtros actuales
+              </p>
+              <button
+                onClick={() => setFilters({ search: '', status: '', priority: '' })}
+                className="px-4 py-2 text-sm text-neutral-600 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition cursor-pointer"
+              >
+                Limpiar filtros
+              </button>
+            </>
+          ) : (
+            <p className="text-neutral-400 text-sm">No hay tareas registradas</p>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <TaskCard key={task.id} task={task} onDelete={handleDelete} />
           ))}
         </div>
