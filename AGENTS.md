@@ -543,3 +543,4 @@ Antes de implementar cualquier nueva funcionalidad, verifica que la solución re
   - Escalabilidad (evitar N+1, lecturas redundantes, operaciones bloqueantes innecesarias).
   - Seguridad (no confiar en datos del frontend, validar todo en backend, no exponer credenciales).
 - **Calidad:** No proponer ni implementar funcionalidades fuera del alcance definido. Cada cambio debe mantener o mejorar la cohesión y el bajo acoplamiento del proyecto.
+- **PLANNING.md:** Antes de actualizar `PLANNING.md`, verificar el orden exacto de las fases y subfases en `PROJECT_ROADMAP.md` para evitar errores de secuencia. Nunca asumir el orden; siempre leer el archivo.
