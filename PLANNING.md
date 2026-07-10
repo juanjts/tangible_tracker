@@ -2,8 +2,8 @@
 
 ## Estado actual
 - Fase: FASE 4 — CRUD de Tareas (Backend)
-- Subfase actual: TASK-API-09 — Eliminar tarea
-- Estado: en progreso
+- Subfase actual: TASK-API-10 — Consolidación del CRUD y pruebas
+- Estado: esperando aprobación
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
