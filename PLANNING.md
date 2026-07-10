@@ -2,8 +2,8 @@
 
 ## Estado actual
 - Fase: FASE 5 — CRUD de Tareas (Frontend)
-- Subfase actual: TASK-UI-11 — Eliminación de tarea
-- Estado: esperando aprobación
+- Subfase actual: TASK-UI-12 — Cambio de responsable
+- Estado: en progreso
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
@@ -34,10 +34,9 @@
 - TASK-UI-08 — Creación de tarea ✅
 - TASK-UI-09 — Detalle de tarea ✅
 - TASK-UI-10 — Edición de tarea ✅
+- TASK-UI-11 — Eliminación de tarea ✅
 
 ## Subfases pendientes
-### FASE 5 — CRUD de Tareas (Frontend)
-- TASK-UI-12 — Cambio de responsable
 
 ### FASE 6 — Dashboard y Experiencia de Usuario
 - UX-01 — Dashboard resumen
@@ -82,3 +81,4 @@
 - TASK-UI-09: TaskDetailPage con detalle completo de la tarea, fechas formateadas, estados de carga/error/404, botones placeholder para editar y eliminar.
 - TASK-UI-10: TaskForm modificado para soportar modo edicion. TaskDetailPage integra formulario al hacer clic en Editar.
 - TASK-UI-11: Eliminacion desde listado y detalle, con window.confirm, loading state y refresh tras eliminar.
+- TASK-UI-12: Hint visual en formulario de edicion sobre actualizacion automatica de fecha de asignacion al cambiar responsable.
