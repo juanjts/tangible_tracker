@@ -104,7 +104,7 @@ function DashboardPage() {
 
   if (tasks.length === 0) {
     return (
-      <div className="p-8">
+      <div className="p-4 sm:p-8">
         <h1 className="text-xl font-semibold text-neutral-800 mb-6">Dashboard</h1>
         <EmptyState message="No hay tareas registradas" />
       </div>
@@ -112,8 +112,8 @@ function DashboardPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 sm:p-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <h1 className="text-xl font-semibold text-neutral-800">Dashboard</h1>
         <span className="text-sm text-neutral-400">
           {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'} en total

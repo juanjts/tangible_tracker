@@ -71,24 +71,24 @@ function TasksListPage() {
   const hasActiveFilters = filters.search || filters.status || filters.priority
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 sm:p-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <h1 className="text-xl font-semibold text-neutral-800">
           Tareas
         </h1>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           {hasActiveFilters ? (
-            <span className="text-sm text-neutral-400">
+            <span className="text-sm text-neutral-400 whitespace-nowrap">
               {filteredTasks.length} de {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'}
             </span>
           ) : (
-            <span className="text-sm text-neutral-400">
+            <span className="text-sm text-neutral-400 whitespace-nowrap">
               {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'}
             </span>
           )}
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition cursor-pointer"
+            className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition cursor-pointer whitespace-nowrap"
           >
             + Nueva tarea
           </button>

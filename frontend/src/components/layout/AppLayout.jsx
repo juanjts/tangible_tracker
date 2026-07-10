@@ -13,16 +13,16 @@ function AppLayout() {
   return (
     <div className="min-h-screen bg-neutral-50 flex flex-col">
       <header className="bg-white border-b border-neutral-200">
-        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <span className="text-lg font-semibold text-neutral-800">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-2">
+          <span className="text-base sm:text-lg font-semibold text-neutral-800 shrink-0">
             tangible_tracker
           </span>
 
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-3 sm:gap-6 min-w-0">
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
-                `text-sm transition cursor-pointer ${isActive ? 'text-neutral-900 font-medium' : 'text-neutral-500 hover:text-neutral-700'}`
+                `text-sm transition cursor-pointer whitespace-nowrap ${isActive ? 'text-neutral-900 font-medium' : 'text-neutral-500 hover:text-neutral-700'}`
               }
             >
               Dashboard
@@ -30,7 +30,7 @@ function AppLayout() {
             <NavLink
               to="/tasks"
               className={({ isActive }) =>
-                `text-sm transition cursor-pointer ${isActive ? 'text-neutral-900 font-medium' : 'text-neutral-500 hover:text-neutral-700'}`
+                `text-sm transition cursor-pointer whitespace-nowrap ${isActive ? 'text-neutral-900 font-medium' : 'text-neutral-500 hover:text-neutral-700'}`
               }
             >
               Tareas
@@ -38,13 +38,15 @@ function AppLayout() {
 
             {user && (
               <>
-                <span className="text-sm text-neutral-400">|</span>
-                <span className="text-sm text-neutral-500">{user.email}</span>
+                <span className="hidden sm:inline text-sm text-neutral-400 shrink-0">|</span>
+                <span className="hidden sm:block text-sm text-neutral-500 truncate max-w-[120px] lg:max-w-[200px]">
+                  {user.email}
+                </span>
                 <button
                   onClick={handleLogout}
-                  className="text-sm text-neutral-500 hover:text-neutral-800 transition cursor-pointer"
+                  className="text-xs sm:text-sm text-neutral-500 hover:text-neutral-800 transition cursor-pointer whitespace-nowrap"
                 >
-                  Cerrar sesión
+                  Salir
                 </button>
               </>
             )}

@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 6 — Dashboard y Experiencia de Usuario
-- Subfase actual: UX-03 — Estados de carga, error y vacío
+- Subfase actual: UX-04 — Diseño responsive
 - Estado: en progreso
 
 ## Subfases completadas
@@ -38,6 +38,7 @@
 - TASK-UI-12 — Cambio de responsable ✅
 - UX-01 — Dashboard resumen ✅
 - UX-02 — Filtros y búsqueda de tareas ✅
+- UX-03 — Estados de carga, error y vacío ✅
 
 ## Subfases pendientes
 

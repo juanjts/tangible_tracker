@@ -87,7 +87,7 @@ function TaskDetailPage() {
 
   if (error) {
     return (
-      <div className="p-8">
+      <div className="p-4 sm:p-8">
         <ErrorState message={error} />
         <div className="flex justify-center mt-4">
           <button
@@ -105,7 +105,7 @@ function TaskDetailPage() {
 
   if (showEditForm) {
     return (
-      <div className="p-8 max-w-2xl mx-auto">
+      <div className="p-4 sm:p-8 max-w-2xl mx-auto">
         <button
           onClick={() => setShowEditForm(false)}
           className="text-sm text-neutral-500 hover:text-neutral-800 transition cursor-pointer mb-6 inline-block"
@@ -128,7 +128,7 @@ function TaskDetailPage() {
   }
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
+    <div className="p-4 sm:p-8 max-w-2xl mx-auto">
       <button
         onClick={() => navigate('/tasks')}
         className="text-sm text-neutral-500 hover:text-neutral-800 transition cursor-pointer mb-6 inline-block"
@@ -136,12 +136,12 @@ function TaskDetailPage() {
         &larr; Volver al listado
       </button>
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6">
-        <div className="flex items-start justify-between mb-6">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-6">
           <h1 className="text-xl font-semibold text-neutral-900">
             {task.title}
           </h1>
-          <div className="flex items-center gap-2 shrink-0 ml-4">
+          <div className="flex items-center gap-2 shrink-0">
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${PRIORITY_STYLES[task.priority] || ''}`}>
               {task.priority}
             </span>
@@ -157,20 +157,20 @@ function TaskDetailPage() {
           </p>
         )}
 
-        <div className="grid grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div>
             <span className="text-neutral-400">Propietario</span>
-            <p className="text-neutral-800 mt-0.5">{task.owner?.email}</p>
+            <p className="text-neutral-800 mt-0.5 break-all">{task.owner?.email}</p>
           </div>
           <div>
             <span className="text-neutral-400">Responsable</span>
-            <p className="text-neutral-800 mt-0.5">{task.responsible?.email}</p>
+            <p className="text-neutral-800 mt-0.5 break-all">{task.responsible?.email}</p>
           </div>
         </div>
 
         <hr className="my-4 border-neutral-100" />
 
-        <div className="grid grid-cols-3 gap-4 text-xs text-neutral-400">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-neutral-400">
           <div>
             <span>Creado</span>
             <p className="text-neutral-600 mt-0.5">{formatDate(task.createdAt)}</p>
