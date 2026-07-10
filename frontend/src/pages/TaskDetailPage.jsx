@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getById } from '../services/tasksService'
+import { getById, remove } from '../services/tasksService'
 import TaskForm from '../components/tasks/TaskForm'
 
 const PRIORITY_STYLES = {
@@ -34,6 +34,8 @@ function TaskDetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [showEditForm, setShowEditForm] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -60,6 +62,21 @@ function TaskDetailPage() {
     const data = await getById(id)
     setTask(data)
     setShowEditForm(false)
+  }
+
+  async function handleDelete() {
+    if (!window.confirm('Esta accion eliminara la tarea permanentemente. ¿Deseas continuar?')) return
+    setDeleteError('')
+    setDeleting(true)
+    try {
+      await remove(id)
+      navigate('/tasks', { replace: true })
+    } catch (err) {
+      const message = err.response?.data?.error?.message || 'Error al eliminar la tarea'
+      setDeleteError(message)
+    } finally {
+      setDeleting(false)
+    }
   }
 
   if (loading) {
@@ -171,6 +188,12 @@ function TaskDetailPage() {
           </div>
         </div>
 
+        {deleteError && (
+          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2 text-center mt-4">
+            {deleteError}
+          </p>
+        )}
+
         <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-neutral-100">
           <button
             onClick={() => setShowEditForm(true)}
@@ -179,9 +202,11 @@ function TaskDetailPage() {
             Editar
           </button>
           <button
-            className="px-4 py-2 text-sm text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition cursor-pointer"
+            onClick={handleDelete}
+            disabled={deleting}
+            className="px-4 py-2 text-sm text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition cursor-pointer disabled:opacity-50"
           >
-            Eliminar
+            {deleting ? 'Eliminando...' : 'Eliminar'}
           </button>
         </div>
       </div>

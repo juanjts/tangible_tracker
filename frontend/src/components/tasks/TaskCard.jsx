@@ -12,8 +12,13 @@ const STATUS_STYLES = {
   Done: 'bg-green-100 text-green-700',
 }
 
-function TaskCard({ task }) {
+function TaskCard({ task, onDelete }) {
   const navigate = useNavigate()
+
+  function handleDelete(e) {
+    e.stopPropagation()
+    onDelete?.(task.id)
+  }
 
   return (
     <div
@@ -29,13 +34,23 @@ function TaskCard({ task }) {
         </span>
       </div>
 
-      <div className="flex items-center gap-3">
-        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[task.status] || ''}`}>
-          {task.status}
-        </span>
-        <span className="text-xs text-neutral-400 truncate">
-          {task.responsible?.email}
-        </span>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[task.status] || ''}`}>
+            {task.status}
+          </span>
+          <span className="text-xs text-neutral-400 truncate">
+            {task.responsible?.email}
+          </span>
+        </div>
+        {onDelete && (
+          <button
+            onClick={handleDelete}
+            className="text-xs text-red-400 hover:text-red-600 transition cursor-pointer"
+          >
+            Eliminar
+          </button>
+        )}
       </div>
     </div>
   )

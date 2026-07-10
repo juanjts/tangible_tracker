@@ -2,8 +2,8 @@
 
 ## Estado actual
 - Fase: FASE 5 — CRUD de Tareas (Frontend)
-- Subfase actual: TASK-UI-10 — Edición de tarea
-- Estado: en progreso
+- Subfase actual: TASK-UI-11 — Eliminación de tarea
+- Estado: esperando aprobación
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
@@ -29,15 +29,14 @@
 - TASK-API-08 — Actualizar tarea ✅
 - TASK-API-09 — Eliminar tarea ✅
 - TASK-API-10 — Consolidación del CRUD y pruebas ✅
+- TASK-UI-06 — Servicio HTTP de tareas ✅
+- TASK-UI-07 — Listado de tareas ✅
+- TASK-UI-08 — Creación de tarea ✅
+- TASK-UI-09 — Detalle de tarea ✅
+- TASK-UI-10 — Edición de tarea ✅
 
 ## Subfases pendientes
 ### FASE 5 — CRUD de Tareas (Frontend)
-- TASK-UI-06 — Servicio HTTP de tareas
-- TASK-UI-07 — Listado de tareas
-- TASK-UI-08 — Creación de tarea
-- TASK-UI-09 — Detalle de tarea
-- TASK-UI-10 — Edición de tarea
-- TASK-UI-11 — Eliminación de tarea
 - TASK-UI-12 — Cambio de responsable
 
 ### FASE 6 — Dashboard y Experiencia de Usuario
@@ -82,3 +81,4 @@
 - TASK-UI-08: TaskForm reutilizable para crear tareas, con validacion, estados de carga/error. TasksListPage tiene boton de nueva tarea. Selector de usuarios en lugar de input email.
 - TASK-UI-09: TaskDetailPage con detalle completo de la tarea, fechas formateadas, estados de carga/error/404, botones placeholder para editar y eliminar.
 - TASK-UI-10: TaskForm modificado para soportar modo edicion. TaskDetailPage integra formulario al hacer clic en Editar.
+- TASK-UI-11: Eliminacion desde listado y detalle, con window.confirm, loading state y refresh tras eliminar.

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { list } from '../services/tasksService'
+import { list, remove } from '../services/tasksService'
 import TaskCard from '../components/tasks/TaskCard'
 import TaskForm from '../components/tasks/TaskForm'
 
@@ -30,6 +30,17 @@ function TasksListPage() {
   function handleCreated() {
     setShowForm(false)
     fetchTasks()
+  }
+
+  async function handleDelete(id) {
+    if (!window.confirm('Esta accion eliminara la tarea permanentemente. ¿Deseas continuar?')) return
+    try {
+      await remove(id)
+      fetchTasks()
+    } catch (err) {
+      const message = err.response?.data?.error?.message || 'Error al eliminar la tarea'
+      setError(message)
+    }
   }
 
   if (loading) {
@@ -86,7 +97,7 @@ function TasksListPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task.id} task={task} onDelete={handleDelete} />
           ))}
         </div>
       )}
