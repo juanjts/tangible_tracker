@@ -529,3 +529,17 @@ Todo el código generado deberá cumplir con los siguientes criterios:
 - Cada decisión debe priorizar mantenibilidad, legibilidad y escalabilidad.
 
 Antes de implementar cualquier nueva funcionalidad, verifica que la solución respete este documento, el plan definido en `PROJECTROADMAP.md` y el estado registrado en `PLANNING.md`, manteniendo coherencia con la arquitectura y las decisiones definidas. Usa las skills necesarias para obtener resultados sólidos y claros.
+
+---
+
+# Recordatorios de Ejecución
+
+- **Skills:** Siempre verificar las skills disponibles antes de iniciar cualquier tarea, y cargar las que apliquen al contexto actual.
+- **Commits:** Nunca ejecutar `git add`, `git commit`, `git push` ni ningún comando de git. El desarrollador es el único autorizado para gestionar el historial de commits. Solo se debe sugerir el comando de commit para que el desarrollador lo ejecute.
+- **Validación previa:** Cada bloque de código generado debe validarse explícitamente contra:
+  - Clean Code (funciones pequeñas, nombres descriptivos, sin código muerto).
+  - Arquitectura Modular por Capas (Routes → Controllers → Services → Repositories → Firestore).
+  - Reglas de negocio definidas en este documento (RN-01 a RN-13).
+  - Escalabilidad (evitar N+1, lecturas redundantes, operaciones bloqueantes innecesarias).
+  - Seguridad (no confiar en datos del frontend, validar todo en backend, no exponer credenciales).
+- **Calidad:** No proponer ni implementar funcionalidades fuera del alcance definido. Cada cambio debe mantener o mejorar la cohesión y el bajo acoplamiento del proyecto.
