@@ -10,6 +10,15 @@ async function list(_req, res, next) {
   }
 }
 
+async function getById(req, res, next) {
+  try {
+    const task = await taskService.getById(req.params.id);
+    successResponse(res, task);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function create(req, res, next) {
   try {
     const activeUserEmail = req.headers['x-user-email'];
@@ -20,4 +29,4 @@ async function create(req, res, next) {
   }
 }
 
-module.exports = { list, create };
+module.exports = { list, getById, create };

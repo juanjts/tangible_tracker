@@ -7,6 +7,12 @@ async function list() {
   return await taskRepository.findAll();
 }
 
+async function getById(id) {
+  const task = await taskRepository.findById(id);
+  if (!task) throw new AppError('Task not found', 404);
+  return task;
+}
+
 async function create({ title, description, priority, status, responsibleEmail, activeUserEmail }) {
   const validationErrors = validateTaskInput({ title, priority, status });
   if (validationErrors.length > 0) {
@@ -34,4 +40,4 @@ async function create({ title, description, priority, status, responsibleEmail, 
   return await taskRepository.create(taskData);
 }
 
-module.exports = { list, create };
+module.exports = { list, getById, create };

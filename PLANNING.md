@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 4 — CRUD de Tareas (Backend)
-- Subfase actual: TASK-API-06 — Listar tareas
+- Subfase actual: TASK-API-07 — Consultar detalle de tarea
 - Estado: en progreso
 
 ## Subfases completadas
