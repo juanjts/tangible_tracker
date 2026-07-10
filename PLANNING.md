@@ -1,9 +1,9 @@
 # PLANNING.md
 
 ## Estado actual
-- Fase: FASE 6 — Dashboard y Experiencia de Usuario
-- Subfase actual: DOC-01 — README.md
-- Estado: en progreso
+- Fase: FASE 8 — Documentación y Entrega
+- Subfase actual: DOC-03 — Revisión final y checklist de entrega
+- Estado: esperando aprobación
 
 ## Subfases completadas
 - INIT-01 — Estructura del repositorio ✅
@@ -39,21 +39,15 @@
 - UX-01 — Dashboard resumen ✅
 - UX-02 — Filtros y búsqueda de tareas ✅
 - UX-03 — Estados de carga, error y vacío ✅
+- UX-04 — Diseño responsive ✅
+- UX-05 — Pulido visual final ✅
+- REFACTOR-01 — Revisión de arquitectura backend ✅
+- REFACTOR-02 — Revisión de arquitectura frontend ✅
+- DOC-01 — README.md ✅
+- DOC-02 — AI_JOURNAL.md ✅
 
 ## Subfases pendientes
-
-### FASE 6 — Dashboard y Experiencia de Usuario
-- UX-04 — Diseño responsive
-- UX-05 — Pulido visual final
-
-### FASE 7 — Refactor y Calidad
-- REFACTOR-01 — Revisión de arquitectura backend
-- REFACTOR-02 — Revisión de arquitectura frontend
-
-### FASE 8 — Documentación y Entrega
-- DOC-01 — README.md
-- DOC-02 — AI_JOURNAL.md
-- DOC-03 — Revisión final y checklist de entrega
+No quedan subfases pendientes.
 
 ## Notas
 - INIT-01 aprobada sin reescribir historial de commits (opción A).
