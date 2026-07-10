@@ -449,17 +449,17 @@ Durante todo el proyecto deberás seguir estas reglas:
 - No implementar funcionalidades fuera del alcance.
 - Si propones una mejora arquitectónica, explica brevemente por qué aporta valor y espera aprobación antes de modificar el diseño.
 - Mantén siempre el contexto completo del proyecto durante todas las conversaciones.
-- Seguir estrictamente el plan de desarrollo definido en `PROJECTROADMAP.md` y mantener actualizado `PLANNING.md`, según se describe en la sección "Seguimiento del Plan de Desarrollo".
+- Seguir estrictamente el plan de desarrollo definido en `PROJECT_ROADMAP.md` y mantener actualizado `PLANNING.md`, según se describe en la sección "Seguimiento del Plan de Desarrollo".
 
 ---
 
-# Seguimiento del Plan de Desarrollo (PROJECTROADMAP.md y PLANNING.md)
+# Seguimiento del Plan de Desarrollo (PROJECT_ROADMAP.md y PLANNING.md)
 
-El desarrollo de este proyecto debe seguir estrictamente el plan definido en `PROJECTROADMAP.md`. Ese documento es la única fuente de verdad sobre qué implementar, en qué orden y cuándo detenerse. `PROJECTROADMAP.md` es un documento fijo: no debe modificarse durante el desarrollo salvo indicación explícita del desarrollador.
+El desarrollo de este proyecto debe seguir estrictamente el plan definido en `PROJECT_ROADMAP.md`. Ese documento es la única fuente de verdad sobre qué implementar, en qué orden y cuándo detenerse. `PROJECT_ROADMAP.md` es un documento fijo: no debe modificarse durante el desarrollo salvo indicación explícita del desarrollador.
 
 ## Reglas obligatorias de ejecución
 
-- No debe implementarse ninguna fase o subfase que no esté definida en `PROJECTROADMAP.md`.
+- No debe implementarse ninguna fase o subfase que no esté definida en `PROJECT_ROADMAP.md`.
 - El desarrollo se realiza siempre **una subfase a la vez**, nunca de corrido.
 - Al finalizar la implementación de una subfase, debes detenerte y esperar la **aprobación explícita del desarrollador** antes de continuar con la siguiente.
 - No debes adelantar trabajo correspondiente a fases o subfases futuras, aunque parezca natural hacerlo.
@@ -467,14 +467,14 @@ El desarrollo de este proyecto debe seguir estrictamente el plan definido en `PR
 
 ## Archivo PLANNING.md
 
-Debe existir en la raíz del proyecto un archivo `PLANNING.md`, que funciona como **bitácora interna de seguimiento** del plan. A diferencia de `PROJECTROADMAP.md` (fijo e inmutable), `PLANNING.md` es un archivo vivo que se actualiza constantemente durante el desarrollo.
+Debe existir en la raíz del proyecto un archivo `PLANNING.md`, que funciona como **bitácora interna de seguimiento** del plan. A diferencia de `PROJECT_ROADMAP.md` (fijo e inmutable), `PLANNING.md` es un archivo vivo que se actualiza constantemente durante el desarrollo.
 
 `PLANNING.md` debe contener siempre:
 
 - Fase y subfase actual en ejecución (identificador y nombre).
 - Estado de la subfase actual: `en progreso`, `esperando aprobación` o `aprobada`.
 - Listado de fases y subfases ya completadas y aprobadas, en orden.
-- Listado de fases y subfases pendientes, en orden, tal como aparecen en `PROJECTROADMAP.md`.
+- Listado de fases y subfases pendientes, en orden, tal como aparecen en `PROJECT_ROADMAP.md`.
 - Referencia del último commit aprobado, si aplica.
 - Notas relevantes sobre decisiones tomadas durante la subfase actual, si las hay.
 
@@ -528,7 +528,7 @@ Todo el código generado deberá cumplir con los siguientes criterios:
 - Debe seguir buenas prácticas de JavaScript y React.
 - Cada decisión debe priorizar mantenibilidad, legibilidad y escalabilidad.
 
-Antes de implementar cualquier nueva funcionalidad, verifica que la solución respete este documento, el plan definido en `PROJECTROADMAP.md` y el estado registrado en `PLANNING.md`, manteniendo coherencia con la arquitectura y las decisiones definidas. Usa las skills necesarias para obtener resultados sólidos y claros.
+Antes de implementar cualquier nueva funcionalidad, verifica que la solución respete este documento, el plan definido en `PROJECT_ROADMAP.md` y el estado registrado en `PLANNING.md`, manteniendo coherencia con la arquitectura y las decisiones definidas. Usa las skills necesarias para obtener resultados sólidos y claros.
 
 ---
 

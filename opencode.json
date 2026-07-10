@@ -1,0 +1,64 @@
+{
+  "skills": [
+    {
+      "name": "development-workflow",
+      "description": "Desarrollar el proyecto de forma incremental, manteniendo calidad y respetando la arquitectura.",
+      "location": ".opencode/skills/development-workflow"
+    },
+    {
+      "name": "backend",
+      "description": "Desarrollar backend con Node.js, Express y Firestore siguiendo arquitectura por capas.",
+      "location": ".opencode/skills/backend"
+    },
+    {
+      "name": "frontend",
+      "description": "Desarrollar frontend con React y Tailwind CSS con componentes reutilizables.",
+      "location": ".opencode/skills/frontend"
+    },
+    {
+      "name": "architecture",
+      "description": "Mantener arquitectura limpia, modular y escalable por capas.",
+      "location": ".opencode/skills/architecture"
+    },
+    {
+      "name": "clean-code",
+      "description": "Generar código limpio, legible, mantenible y fácil de extender.",
+      "location": ".opencode/skills/clean-code"
+    },
+    {
+      "name": "firestore",
+      "description": "Utilizar Firestore de forma eficiente aprovechando su modelo documental.",
+      "location": ".opencode/skills/firestore"
+    },
+    {
+      "name": "api",
+      "description": "Diseñar una API REST consistente, predecible y fácil de consumir.",
+      "location": ".opencode/skills/api"
+    },
+    {
+      "name": "ui-design",
+      "description": "Construir interfaz moderna, limpia, consistente y responsive estilo SaaS.",
+      "location": ".opencode/skills/ui-design"
+    },
+    {
+      "name": "security",
+      "description": "Aplicar buenas prácticas de seguridad sin complejidad innecesaria.",
+      "location": ".opencode/skills/security"
+    },
+    {
+      "name": "review",
+      "description": "Revisar implementaciones garantizando calidad, consistencia y mantenibilidad.",
+      "location": ".opencode/skills/review"
+    },
+    {
+      "name": "git",
+      "description": "Mantener historial de cambios limpio con Conventional Commits.",
+      "location": ".opencode/skills/git"
+    },
+    {
+      "name": "performance",
+      "description": "Mantener aplicación eficiente para ~50 solicitudes por segundo.",
+      "location": ".opencode/skills/performance"
+    }
+  ]
+}
