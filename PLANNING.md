@@ -1,8 +1,8 @@
 # PLANNING.md
 
 ## Estado actual
-- Fase: FASE 3 — Identificación Simulada (Frontend)
-- Subfase actual: TASK-UI-01 — Configuración de React Router y estructura de páginas
+- Fase: FASE 4 — CRUD de Tareas (Backend)
+- Subfase actual: TASK-API-04 — Repositorio de tareas (Firestore)
 - Estado: pendiente
 
 ## Subfases completadas
@@ -17,15 +17,11 @@
 - TASK-API-01 — Repositorio de usuarios (Firestore) ✅
 - TASK-API-02 — Service de identificación de usuario ✅
 - TASK-API-03 — Endpoint de identificación simulada ✅
-
-## Subfases pendientes
-
-### FASE 3 — Identificación Simulada (Frontend)
-- TASK-UI-01 — Configuración de React Router y estructura de páginas
-- TASK-UI-02 — Cliente HTTP centralizado (Axios)
-- TASK-UI-03 — Pantalla de identificación simulada
-- TASK-UI-04 — Estado global de usuario activo
-- TASK-UI-05 — Layout base y navegación
+- TASK-UI-01 — Configuración de React Router y estructura de páginas ✅
+- TASK-UI-02 — Cliente HTTP centralizado (Axios) ✅
+- TASK-UI-03 — Pantalla de identificación simulada ✅
+- TASK-UI-04 — Estado global de usuario activo ✅
+- TASK-UI-05 — Layout base y navegación ✅
 
 ### FASE 4 — CRUD de Tareas (Backend)
 - TASK-API-04 — Repositorio de tareas (Firestore)
@@ -74,3 +70,8 @@
 - TASK-API-02: identityService con db.runTransaction() para evitar race condition TOCTOU.
 - TASK-API-03: endpoint POST /api/identity con controller, validación de email y formato de respuesta estándar.
 - Correcciones previas a FASE 3: create sin lectura redundante, repositorio integrado en transacción, AppError con isOperational y logging, .gitkeep en directorios vacíos.
+- TASK-UI-01: React Router con 5 rutas, páginas placeholder, build exitoso.
+- TASK-UI-02: Axios centralizado con VITE_API_URL, interceptor de errores, health check de prueba.
+- TASK-UI-03: Formulario controlado con email + password, validación, loading, error, servicio identityService separado.
+- TASK-UI-04: UserContext con sessionStorage, login/logout, redirect con Navigate.
+- TASK-UI-05: AppLayout con navbar (NavLink activo, email usuario, cerrar sesión), Outlet para rutas hijas, /identity fuera del layout.
