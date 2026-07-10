@@ -1,15 +1,21 @@
 import { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { identify } from '../services/identityService'
+import { useUser } from '../context/UserContext'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function IdentityPage() {
+  const { user, login } = useUser()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const isEmailValid = EMAIL_REGEX.test(email)
+
+  if (user) return <Navigate to="/dashboard" replace />
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -22,8 +28,9 @@ function IdentityPage() {
 
     setLoading(true)
     try {
-      const user = await identify(email)
-      console.log('Usuario activo:', user)
+      const identifiedUser = await identify(email)
+      login(identifiedUser)
+      navigate('/dashboard', { replace: true })
     } catch (err) {
       const message = err.response?.data?.error?.message || 'Error al conectar con el servidor'
       setError(message)
