@@ -17,4 +17,13 @@ async function identify(req, res, next) {
   }
 }
 
-module.exports = { identify };
+async function listUsers(_req, res, next) {
+  try {
+    const users = await identityService.listUsers();
+    successResponse(res, users);
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { identify, listUsers };

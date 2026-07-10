@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const identityRoutes = require('./src/modules/identity/routes/identityRoutes');
+const userRoutes = require('./src/modules/identity/routes/userRoutes');
 const taskRoutes = require('./src/modules/tasks/routes/taskRoutes');
 const errorHandler = require('./src/shared/middlewares/errorHandler');
 const metrics = require('./src/shared/middlewares/metrics');
@@ -17,6 +18,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api/identity', identityRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
 
 app.use(errorHandler);

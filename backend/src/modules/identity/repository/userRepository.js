@@ -28,4 +28,9 @@ async function create({ email }, transaction = null) {
   return { id: docRef.id, email };
 }
 
-module.exports = { findByEmail, create };
+async function findAll() {
+  const snapshot = await db.collection(COLLECTION).orderBy('email', 'asc').get();
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+}
+
+module.exports = { findByEmail, create, findAll };

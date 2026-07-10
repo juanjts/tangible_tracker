@@ -16,4 +16,8 @@ async function identify({ email }) {
   });
 }
 
-module.exports = { identify };
+async function listUsers() {
+  return await userRepository.findAll();
+}
+
+module.exports = { identify, listUsers };
