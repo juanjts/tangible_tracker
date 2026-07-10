@@ -19,13 +19,9 @@ async function findByEmail(email) {
 }
 
 async function create({ email }) {
-  const docRef = await db.collection(COLLECTION).add({
-    email,
-    createdAt: FieldValue.serverTimestamp(),
-  });
-
-  const doc = await docRef.get();
-  return { id: doc.id, ...doc.data() };
+  const docRef = db.collection(COLLECTION).doc();
+  await docRef.set({ email, createdAt: FieldValue.serverTimestamp() });
+  return { id: docRef.id, email };
 }
 
 module.exports = { findByEmail, create };
