@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 6 — Dashboard y Experiencia de Usuario
-- Subfase actual: UX-05 — Pulido visual final
+- Subfase actual: REFACTOR-01 — Revisión de arquitectura backend
 - Estado: en progreso
 
 ## Subfases completadas

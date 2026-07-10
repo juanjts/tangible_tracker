@@ -23,7 +23,7 @@ async function create(data) {
     updatedAt: FieldValue.serverTimestamp(),
   };
   await docRef.set(task);
-  return { id: docRef.id, ...data, assignedAt: null, createdAt: null, updatedAt: null };
+  return { id: docRef.id, ...data };
 }
 
 async function update(id, data) {
