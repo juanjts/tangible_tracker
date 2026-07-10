@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 5 — CRUD de Tareas (Frontend)
-- Subfase actual: TASK-UI-09 — Detalle de tarea
+- Subfase actual: TASK-UI-10 — Edición de tarea
 - Estado: en progreso
 
 ## Subfases completadas
@@ -81,3 +81,4 @@
 - TASK-UI-07: TasksListPage con listado en cards responsive, estados de carga/vacío/error, colores por prioridad y status.
 - TASK-UI-08: TaskForm reutilizable para crear tareas, con validacion, estados de carga/error. TasksListPage tiene boton de nueva tarea. Selector de usuarios en lugar de input email.
 - TASK-UI-09: TaskDetailPage con detalle completo de la tarea, fechas formateadas, estados de carga/error/404, botones placeholder para editar y eliminar.
+- TASK-UI-10: TaskForm modificado para soportar modo edicion. TaskDetailPage integra formulario al hacer clic en Editar.

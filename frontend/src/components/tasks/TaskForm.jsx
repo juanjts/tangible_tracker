@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react'
-import { create } from '../../services/tasksService'
+import { create, update } from '../../services/tasksService'
 import { list as listUsers } from '../../services/usersService'
 import { useUser } from '../../context/UserContext'
 
 const PRIORITIES = ['Low', 'Medium', 'High']
 const STATUSES = ['To Do', 'In Progress', 'Done']
 
-function TaskForm({ onSuccess, onCancel }) {
+function TaskForm({ mode, task, onSuccess, onCancel }) {
   const { user } = useUser()
   const [users, setUsers] = useState([])
   const [usersLoading, setUsersLoading] = useState(true)
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [priority, setPriority] = useState('Medium')
-  const [status, setStatus] = useState('To Do')
-  const [responsibleEmail, setResponsibleEmail] = useState('')
+  const [title, setTitle] = useState(mode === 'edit' && task ? task.title : '')
+  const [description, setDescription] = useState(mode === 'edit' && task ? task.description : '')
+  const [priority, setPriority] = useState(mode === 'edit' && task ? task.priority : 'Medium')
+  const [status, setStatus] = useState(mode === 'edit' && task ? task.status : 'To Do')
+  const [responsibleEmail, setResponsibleEmail] = useState(
+    mode === 'edit' && task && task.responsible ? task.responsible.email : '',
+  )
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const isEdit = mode === 'edit' && task
 
   useEffect(() => {
     let cancelled = false
@@ -50,15 +54,24 @@ function TaskForm({ onSuccess, onCancel }) {
       return
     }
 
+    const taskData = {
+      title: title.trim(),
+      description: description.trim(),
+      priority,
+      status,
+      responsibleEmail,
+    }
+
     setLoading(true)
     try {
-      await create(
-        { title: title.trim(), description: description.trim(), priority, status, responsibleEmail },
-        user.email,
-      )
+      if (isEdit) {
+        await update(task.id, taskData)
+      } else {
+        await create(taskData, user.email)
+      }
       onSuccess()
     } catch (err) {
-      const message = err.response?.data?.error?.message || 'Error al crear la tarea'
+      const message = err.response?.data?.error?.message || (isEdit ? 'Error al guardar los cambios' : 'Error al crear la tarea')
       setError(message)
     } finally {
       setLoading(false)
@@ -130,6 +143,17 @@ function TaskForm({ onSuccess, onCancel }) {
       </div>
 
       <div>
+        <label className="block text-sm font-medium text-neutral-700 mb-1">
+          Propietario
+        </label>
+        {isEdit ? (
+          <p className="text-sm text-neutral-500 py-2">{task.owner.email}</p>
+        ) : (
+          <p className="text-sm text-neutral-500 py-2">Se asignara automaticamente</p>
+        )}
+      </div>
+
+      <div>
         <label htmlFor="responsibleEmail" className="block text-sm font-medium text-neutral-700 mb-1">
           Responsable
         </label>
@@ -170,11 +194,16 @@ function TaskForm({ onSuccess, onCancel }) {
           disabled={loading || usersLoading}
           className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
         >
-          {loading ? 'Creando...' : 'Crear tarea'}
+          {loading ? (isEdit ? 'Guardando...' : 'Creando...') : (isEdit ? 'Guardar cambios' : 'Crear tarea')}
         </button>
       </div>
     </form>
   )
+}
+
+TaskForm.defaultProps = {
+  mode: 'create',
+  task: null,
 }
 
 export default TaskForm

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getById } from '../services/tasksService'
+import TaskForm from '../components/tasks/TaskForm'
 
 const PRIORITY_STYLES = {
   High: 'bg-red-100 text-red-700',
@@ -15,7 +16,7 @@ const STATUS_STYLES = {
 }
 
 function formatDate(timestamp) {
-  if (!timestamp || !timestamp._seconds) return '—'
+  if (!timestamp || !timestamp._seconds) return '\u2014'
   const date = new Date(timestamp._seconds * 1000)
   return date.toLocaleDateString('es-CO', {
     year: 'numeric',
@@ -32,6 +33,7 @@ function TaskDetailPage() {
   const [task, setTask] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [showEditForm, setShowEditForm] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -43,8 +45,7 @@ function TaskDetailPage() {
       } catch (err) {
         if (!cancelled) {
           const status = err.response?.status
-          const message = err.response?.data?.error?.message || 'Error al cargar la tarea'
-          setError(status === 404 ? 'Tarea no encontrada' : message)
+          setError(status === 404 ? 'Tarea no encontrada' : 'Error al cargar la tarea')
         }
       } finally {
         if (!cancelled) setLoading(false)
@@ -54,6 +55,12 @@ function TaskDetailPage() {
     fetchTask()
     return () => { cancelled = true }
   }, [id])
+
+  async function handleEditSuccess() {
+    const data = await getById(id)
+    setTask(data)
+    setShowEditForm(false)
+  }
 
   if (loading) {
     return (
@@ -81,6 +88,30 @@ function TaskDetailPage() {
   }
 
   if (!task) return null
+
+  if (showEditForm) {
+    return (
+      <div className="p-8 max-w-2xl mx-auto">
+        <button
+          onClick={() => setShowEditForm(false)}
+          className="text-sm text-neutral-500 hover:text-neutral-800 transition cursor-pointer mb-6 inline-block"
+        >
+          &larr; Cancelar edicion
+        </button>
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6">
+          <h2 className="text-lg font-semibold text-neutral-800 mb-4">
+            Editar tarea
+          </h2>
+          <TaskForm
+            mode="edit"
+            task={task}
+            onSuccess={handleEditSuccess}
+            onCancel={() => setShowEditForm(false)}
+          />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="p-8 max-w-2xl mx-auto">
@@ -142,6 +173,7 @@ function TaskDetailPage() {
 
         <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-neutral-100">
           <button
+            onClick={() => setShowEditForm(true)}
             className="px-4 py-2 text-sm text-neutral-600 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition cursor-pointer"
           >
             Editar
