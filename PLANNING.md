@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 5 — CRUD de Tareas (Frontend)
-- Subfase actual: TASK-UI-08 — Creación de tarea
+- Subfase actual: TASK-UI-09 — Detalle de tarea
 - Estado: en progreso
 
 ## Subfases completadas
@@ -79,4 +79,5 @@
 - TASK-API-06 a TASK-API-10: CRUD backend completo validado con todas las reglas de negocio (RN-04 a RN-13).
 - TASK-UI-06: servicio tasksService.js creado con 5 funciones (list, getById, create, update, remove), siguiendo el mismo patrón de identityService.js.
 - TASK-UI-07: TasksListPage con listado en cards responsive, estados de carga/vacío/error, colores por prioridad y status.
-- TASK-UI-08: TaskForm reutilizable para crear tareas, con validacion, estados de carga/error. TasksListPage tiene boton de nueva tarea.
+- TASK-UI-08: TaskForm reutilizable para crear tareas, con validacion, estados de carga/error. TasksListPage tiene boton de nueva tarea. Selector de usuarios en lugar de input email.
+- TASK-UI-09: TaskDetailPage con detalle completo de la tarea, fechas formateadas, estados de carga/error/404, botones placeholder para editar y eliminar.
