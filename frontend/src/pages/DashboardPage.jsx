@@ -56,7 +56,7 @@ function countBy(items, key) {
 
 function StatCard({ count, label, bg, text, dot }) {
   return (
-    <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+    <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 hover:shadow-md transition">
       <div className="flex items-center gap-3">
         <span className={`w-3 h-3 rounded-full shrink-0 ${dot}`} />
         <div>

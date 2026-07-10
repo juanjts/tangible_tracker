@@ -53,7 +53,7 @@ function IdentityPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6 space-y-4"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6 space-y-4 hover:shadow-md transition"
         >
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">

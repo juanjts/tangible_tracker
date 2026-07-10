@@ -142,10 +142,10 @@ function TaskDetailPage() {
             {task.title}
           </h1>
           <div className="flex items-center gap-2 shrink-0">
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${PRIORITY_STYLES[task.priority] || ''}`}>
+            <span className={`text-xs font-medium px-2 py-0.5 rounded-full transition ${PRIORITY_STYLES[task.priority] || ''}`}>
               {task.priority}
             </span>
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[task.status] || ''}`}>
+            <span className={`text-xs font-medium px-2 py-0.5 rounded-full transition ${STATUS_STYLES[task.status] || ''}`}>
               {task.status}
             </span>
           </div>
