@@ -1,8 +1,8 @@
 # PLANNING.md
 
 ## Estado actual
-- Fase: FASE 5 — CRUD de Tareas (Frontend)
-- Subfase actual: TASK-UI-12 — Cambio de responsable
+- Fase: FASE 6 — Dashboard y Experiencia de Usuario
+- Subfase actual: UX-01 — Dashboard resumen
 - Estado: en progreso
 
 ## Subfases completadas
@@ -35,11 +35,11 @@
 - TASK-UI-09 — Detalle de tarea ✅
 - TASK-UI-10 — Edición de tarea ✅
 - TASK-UI-11 — Eliminación de tarea ✅
+- TASK-UI-12 — Cambio de responsable ✅
 
 ## Subfases pendientes
 
 ### FASE 6 — Dashboard y Experiencia de Usuario
-- UX-01 — Dashboard resumen
 - UX-02 — Filtros y búsqueda de tareas
 - UX-03 — Estados de carga, error y vacío
 - UX-04 — Diseño responsive
@@ -82,3 +82,4 @@
 - TASK-UI-10: TaskForm modificado para soportar modo edicion. TaskDetailPage integra formulario al hacer clic en Editar.
 - TASK-UI-11: Eliminacion desde listado y detalle, con window.confirm, loading state y refresh tras eliminar.
 - TASK-UI-12: Hint visual en formulario de edicion sobre actualizacion automatica de fecha de asignacion al cambiar responsable.
+- UX-01: Dashboard con conteos de tareas por estado y prioridad, estados de carga/error/vacio.
