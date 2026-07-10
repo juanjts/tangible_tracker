@@ -31,6 +31,11 @@ async function update(id, data) {
     ...data,
     updatedAt: FieldValue.serverTimestamp(),
   };
+
+  if ('assignedAt' in data) {
+    updates.assignedAt = FieldValue.serverTimestamp();
+  }
+
   await db.collection(COLLECTION).doc(id).update(updates);
   return findById(id);
 }

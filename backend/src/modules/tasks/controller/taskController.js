@@ -19,6 +19,15 @@ async function getById(req, res, next) {
   }
 }
 
+async function update(req, res, next) {
+  try {
+    const task = await taskService.update(req.params.id, req.body);
+    successResponse(res, task);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function create(req, res, next) {
   try {
     const activeUserEmail = req.headers['x-user-email'];
@@ -29,4 +38,4 @@ async function create(req, res, next) {
   }
 }
 
-module.exports = { list, getById, create };
+module.exports = { list, getById, update, create };
