@@ -2,7 +2,7 @@
 
 ## Estado actual
 - Fase: FASE 5 — CRUD de Tareas (Frontend)
-- Subfase actual: TASK-UI-06 — Servicio HTTP de tareas
+- Subfase actual: TASK-UI-07 — Listado de tareas
 - Estado: en progreso
 
 ## Subfases completadas
@@ -78,3 +78,4 @@
 - TASK-API-05: taskService.create valida activeUser via x-user-email header + responsibleEmail contra userRepository. taskValidations con enums. server.js fix para error EADDRINUSE (Express 5 llama al callback con el error). Owner siempre asignado por backend desde el header validado, nunca del body.
 - TASK-API-06 a TASK-API-10: CRUD backend completo validado con todas las reglas de negocio (RN-04 a RN-13).
 - TASK-UI-06: servicio tasksService.js creado con 5 funciones (list, getById, create, update, remove), siguiendo el mismo patrón de identityService.js.
+- TASK-UI-07: TasksListPage con listado en cards responsive, estados de carga/vacío/error, colores por prioridad y status.
