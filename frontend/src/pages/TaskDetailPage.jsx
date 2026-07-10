@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getById, remove } from '../services/tasksService'
 import TaskForm from '../components/tasks/TaskForm'
+import LoadingState from '../components/common/LoadingState'
+import ErrorState from '../components/common/ErrorState'
 
 const PRIORITY_STYLES = {
   High: 'bg-red-100 text-red-700',
@@ -80,19 +82,14 @@ function TaskDetailPage() {
   }
 
   if (loading) {
-    return (
-      <div className="p-8 flex items-center justify-center text-neutral-400 text-sm">
-        Cargando detalle de la tarea...
-      </div>
-    )
+    return <LoadingState message="Cargando detalle de la tarea..." />
   }
 
   if (error) {
     return (
       <div className="p-8">
-        <div className="text-center mt-16">
-          <p className="text-neutral-300 text-5xl mb-4">--</p>
-          <p className="text-red-600 text-sm mb-6">{error}</p>
+        <ErrorState message={error} />
+        <div className="flex justify-center mt-4">
           <button
             onClick={() => navigate('/tasks')}
             className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition cursor-pointer"

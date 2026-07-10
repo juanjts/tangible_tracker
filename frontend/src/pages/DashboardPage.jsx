@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { list } from '../services/tasksService'
+import LoadingState from '../components/common/LoadingState'
+import ErrorState from '../components/common/ErrorState'
+import EmptyState from '../components/common/EmptyState'
 
 const STATUS_STYLES = {
   'To Do': {
@@ -89,19 +92,11 @@ function DashboardPage() {
   }, [])
 
   if (loading) {
-    return (
-      <div className="p-8 flex items-center justify-center text-neutral-400 text-sm">
-        Cargando dashboard...
-      </div>
-    )
+    return <LoadingState message="Cargando dashboard..." />
   }
 
   if (error) {
-    return (
-      <div className="p-8 flex items-center justify-center text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg mx-8 mt-8">
-        {error}
-      </div>
-    )
+    return <ErrorState message={error} />
   }
 
   const statusCounts = countBy(tasks, 'status')
@@ -111,10 +106,7 @@ function DashboardPage() {
     return (
       <div className="p-8">
         <h1 className="text-xl font-semibold text-neutral-800 mb-6">Dashboard</h1>
-        <div className="text-center mt-16">
-          <p className="text-neutral-300 text-5xl mb-4">--</p>
-          <p className="text-neutral-400 text-sm">No hay tareas registradas</p>
-        </div>
+        <EmptyState message="No hay tareas registradas" />
       </div>
     )
   }

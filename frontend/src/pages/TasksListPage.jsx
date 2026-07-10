@@ -1,8 +1,11 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+﻿import { useState, useEffect, useCallback, useMemo } from 'react'
 import { list, remove } from '../services/tasksService'
 import TaskCard from '../components/tasks/TaskCard'
 import TaskForm from '../components/tasks/TaskForm'
 import TaskFilters from '../components/tasks/TaskFilters'
+import LoadingState from '../components/common/LoadingState'
+import ErrorState from '../components/common/ErrorState'
+import EmptyState from '../components/common/EmptyState'
 
 function TasksListPage() {
   const [tasks, setTasks] = useState([])
@@ -58,19 +61,11 @@ function TasksListPage() {
   }
 
   if (loading) {
-    return (
-      <div className="p-8 flex items-center justify-center text-neutral-400 text-sm">
-        Cargando tareas...
-      </div>
-    )
+    return <LoadingState message="Cargando tareas..." />
   }
 
   if (error) {
-    return (
-      <div className="p-8 flex items-center justify-center text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg mx-8 mt-8">
-        {error}
-      </div>
-    )
+    return <ErrorState message={error} />
   }
 
   const hasActiveFilters = filters.search || filters.status || filters.priority
@@ -114,22 +109,14 @@ function TasksListPage() {
       <TaskFilters filters={filters} onFilterChange={setFilters} />
 
       {filteredTasks.length === 0 ? (
-        <div className="text-center mt-16">
-          <p className="text-neutral-300 text-5xl mb-4">--</p>
+        <div>
           {hasActiveFilters ? (
-            <>
-              <p className="text-neutral-400 text-sm mb-4">
-                No se encontraron tareas con los filtros actuales
-              </p>
-              <button
-                onClick={() => setFilters({ search: '', status: '', priority: '' })}
-                className="px-4 py-2 text-sm text-neutral-600 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition cursor-pointer"
-              >
-                Limpiar filtros
-              </button>
-            </>
+            <EmptyState
+              message="No se encontraron tareas con los filtros actuales"
+              action={{ label: 'Limpiar filtros', onClick: () => setFilters({ search: '', status: '', priority: '' }) }}
+            />
           ) : (
-            <p className="text-neutral-400 text-sm">No hay tareas registradas</p>
+            <EmptyState message="No hay tareas registradas" />
           )}
         </div>
       ) : (
