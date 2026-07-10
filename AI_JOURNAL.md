@@ -34,41 +34,46 @@ Este enfoque busca que la IA nunca improvise ni se adelante a fases futuras, y q
 
 ## 2. Análisis de Errores/Alucinaciones
 
-Hasta el momento, en esta etapa temprana del desarrollo, se ha identificado un caso relevante. No se trata de un error de lógica de negocio ni de una falla de seguridad, sino de una **propuesta de la IA que no se adaptaba completamente al flujo de trabajo esperado para el proyecto**, específicamente en `server.js`.
+### Caso 1 — Verificación de salud al arrancar
 
-Al implementar la subfase de inicialización del backend (arranque del servidor Express), la IA generó el siguiente código:
+Al implementar INIT-02, la IA generó `server.js` sin verificación automática del endpoint `/health`, obligando a comprobaciones manuales externas en cada arranque del servidor.
 
+**Código problemático:**
 ```javascript
-require('dotenv/config');
-const app = require('./app');
-
-const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 ```
 
-El código es funcional y arranca el servidor correctamente, pero no incluye ninguna verificación automática del estado de salud del servidor al levantarse. Esto obligaba a comprobar manualmente que el backend estuviera realmente operativo, abriendo el endpoint `/health` en el navegador o ejecutando una petición manual con curl/Postman cada vez que se levantaba el servidor durante el desarrollo. Para un flujo de trabajo donde se van completando subfases de forma incremental y frecuente, esto representa una fricción innecesaria: la propuesta de la IA cubría el requisito funcional mínimo, pero no se adaptaba a la necesidad real de tener retroalimentación inmediata del estado del servidor en cada arranque.
+**Solución:** agregar auto-verificación con `http.get()` dentro del callback de `app.listen()`.
+
+---
+
+### Caso 2 — Race condition en identityService
+
+Al implementar TASK-API-02, el método `identify()` ejecutaba `findByEmail` y `create` como operaciones separadas, generando una condición TOCTOU: si N peticiones llegan simultáneamente con el mismo email nuevo, todas ven que no existe y crean documentos duplicados en Firestore. Para 10 peticiones simultáneas de prueba se verificó que se creaban usuarios duplicados.
+
+**Código problemático:**
+```javascript
+const existingUser = await userRepository.findByEmail(email);
+if (existingUser) return existingUser;
+const newUser = await userRepository.create({ email });
+return newUser;
+```
+
+**Solución:** reemplazar por transacción atómica con `db.runTransaction()` que lee y escribe dentro de una sola operación. Firestore garantiza que solo una transacción completa la escritura; las demás reintentan automáticamente y en el reintento encuentran el usuario ya creado.
 
 ---
 
 ## 3. Resolución Técnica
 
-El problema no se manifestó como un error en consola ni como un fallo al ejecutar el proyecto; fue detectado al revisar manualmente el código generado y compararlo contra la necesidad práctica de confirmar rápidamente, en cada arranque del backend, que el servidor y el endpoint de salud estuvieran respondiendo correctamente, sin depender de una verificación manual externa.
+### Caso 1 — Verificación de salud al arrancar
 
-El ajuste manual implementado fue agregar una verificación automática del endpoint `/health` inmediatamente después de que el servidor confirma que está escuchando, usando el módulo nativo `http` de Node.js:
+Se agregó auto-verificación del endpoint `/health` dentro del callback de `app.listen()`:
 
 ```javascript
-require('dotenv/config');
-const http = require('http');
-const app = require('./app');
-
-const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-
   http.get(`http://localhost:${PORT}/health`, (res) => {
     let data = '';
     res.on('data', chunk => data += chunk);
@@ -77,11 +82,39 @@ app.listen(PORT, () => {
 });
 ```
 
-Con este cambio, cada vez que el servidor arranca, se dispara automáticamente una petición interna al endpoint `/health` y se imprime en consola el resultado (`Health check: ...`) o el fallo (`Health check: failed`), sin necesidad de abrir el navegador ni ejecutar herramientas externas. Al colocarse dentro del callback de `app.listen()`, la petición solo se dispara una vez que Express ya confirmó que está escuchando en el puerto configurado, evitando condiciones de carrera contra un servidor que aún no está listo.
+**Acción futura:** documentar en `AGENTS.md` que todo servicio debe reportar su estado de salud automáticamente al arrancar.
 
-Por el momento este ajuste se hizo de forma puntual y manual, ya que el proyecto se encuentra en una fase temprana del desarrollo. Sin embargo, se identificaron dos acciones pendientes para evitar que este mismo vacío se repita en instrucciones futuras a la IA:
+---
 
-- Agregar una entrada en `AGENTS.md` (o una skill dedicada) que indique explícitamente que todo servicio que se levante debe reportar su estado de salud de forma automática en consola al arrancar, para que este comportamiento se tenga en cuenta desde el inicio en futuras subfases y no dependa de una corrección posterior.
-- Tener en cuenta, más adelante en el roadmap (en la subfase correspondiente al middleware de métricas de rendimiento), que ya existe un formato recomendado y ya definido en `AGENTS.md` para el registro de logs de cada petición HTTP (`[MÉTRICA] MÉTODO RUTA - Xms`), de manera que cualquier logging adicional que se agregue sea consistente con ese estándar y no introduzca formatos de registro divergentes dentro del proyecto.
+### Caso 2 — Race condition en identityService
 
-Hasta ahora este hallazgo no ha modificado la forma general de construir los prompts para la IA ejecutora, pero sí deja como acción concreta de mejora continua actualizar `AGENTS.md` para que este tipo de comportamiento (verificación de salud al arrancar, consistencia en el formato de logs) se solicite de forma explícita desde el principio, en lugar de corregirse de forma reactiva.
+Se reemplazó el flujo secuencial `findByEmail → create` por una transacción atómica con `db.runTransaction()`, que lee y escribe dentro de una sola operación. Firestore garantiza atomicidad: solo una transacción completa la escritura, las demás reintentan automáticamente y retornan el usuario ya existente.
+
+**Código implementado:**
+```javascript
+async function identify({ email }) {
+  // validación...
+  return await db.runTransaction(async (transaction) => {
+    const snapshot = await transaction.get(
+      db.collection('users').where('email', '==', email).limit(1)
+    );
+
+    if (!snapshot.empty) {
+      const doc = snapshot.docs[0];
+      return { id: doc.id, ...doc.data() };
+    }
+
+    const docRef = db.collection('users').doc();
+    transaction.set(docRef, {
+      email,
+      createdAt: FieldValue.serverTimestamp(),
+    });
+
+    return { id: docRef.id, email, createdAt: null };
+  });
+}
+```
+
+**Pruebas realizadas:**
+- 10 peticiones simultáneas con el **mismo email** → 1 único usuario creado ✅
+- 10 peticiones simultáneas con **10 emails diferentes** → 10 usuarios creados ✅
