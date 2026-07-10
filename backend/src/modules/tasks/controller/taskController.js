@@ -1,6 +1,15 @@
 const taskService = require('../service/taskService');
 const { successResponse } = require('../../../shared/http/response');
 
+async function list(_req, res, next) {
+  try {
+    const tasks = await taskService.list();
+    successResponse(res, tasks);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function create(req, res, next) {
   try {
     const activeUserEmail = req.headers['x-user-email'];
@@ -11,4 +20,4 @@ async function create(req, res, next) {
   }
 }
 
-module.exports = { create };
+module.exports = { list, create };

@@ -3,6 +3,10 @@ const userRepository = require('../../identity/repository/userRepository');
 const taskRepository = require('../repository/taskRepository');
 const { validateTaskInput } = require('../validations/taskValidations');
 
+async function list() {
+  return await taskRepository.findAll();
+}
+
 async function create({ title, description, priority, status, responsibleEmail, activeUserEmail }) {
   const validationErrors = validateTaskInput({ title, priority, status });
   if (validationErrors.length > 0) {
@@ -30,4 +34,4 @@ async function create({ title, description, priority, status, responsibleEmail, 
   return await taskRepository.create(taskData);
 }
 
-module.exports = { create };
+module.exports = { list, create };
